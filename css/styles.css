@@ -1,3 +1,7 @@
+:root {
+    --restart-font-size: 36px;
+    --restart-container-offset: 10px; 
+}
 html {
     height: 100%;
     width: 100%;
@@ -6,6 +10,7 @@ html {
 body {
     height: 100%;
     width: 100%;
+    background: #ffc600;
 }
 
 #content-container {
@@ -19,12 +24,36 @@ body {
     align-items: center;
 }
 
+#restart-container {
+    position: fixed;
+    top: var(--restart-container-offset);
+    left: calc(100vw - var(--restart-font-size) - var(--restart-container-offset));
+    border: 1px solid black;
+    border-radius: 50%;
+    height: calc(var(--restart-font-size));
+    width: calc(var(--restart-font-size));
 
+    user-select: none;
+}
+
+#restart-container > span {
+    display: block;
+    font-size: var(--restart-font-size);
+    transform: scale(0.9);
+}
+
+.button-container {
+    display: flex;
+    width: 350px;
+    justify-content: space-between;
+
+}
 .main-button {
     background: white;
-    border: 2px dotted red;
-    
+    border: 2px solid black;
 
+    -webkit-box-shadow: -5px 7px 0px 1px rgba(0,0,0,0.7); 
+    box-shadow: -5px 7px 0px 1px rgba(0,0,0,0.7);
 }
 
 .main-button img {
