@@ -1,0 +1,34 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+#content-container {
+    margin: auto;
+    width: 50%;
+    height: 300px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.main-button {
+    background: white;
+    border: 2px dotted red;
+    
+
+}
+
+.main-button img {
+    width: 75px;
+    height: 75px;
+}
+
