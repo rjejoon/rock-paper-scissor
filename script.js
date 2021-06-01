@@ -1,12 +1,11 @@
-function main() {
-    const MAX_NUM_GAMES = 5;
+const MAX_NUM_GAMES = 5;
 
-    const buttons = document.querySelectorAll('.main-button');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', clickHandler);
-    });
+const buttons = document.querySelectorAll('.main-button');
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', clickHandler);
+});
     
-}
 
 function clickHandler(e) {
     const buttonType = this.getAttribute('id');
@@ -15,21 +14,24 @@ function clickHandler(e) {
 
     const msgEle = document.querySelector('#result-msg');
     msgEle.textContent = resultMsg;
+
+    const playerScoreEle = document.querySelector('#player-score');
+    const computerScoreEle = document.querySelector('#computer-score');
+
+    let playerScore = parseInt(playerScoreEle.textContent);
+    let computerScore = parseInt(computerScoreEle.textContent);
     
-    const scoreBoard = document.querySelector('#scoreboard');
-    let [playerScore, computerScore] = scoreBoard.textContent.split(':').map(n => parseInt(n));
+    if (result === 1) playerScore++;
+    if (result === -1) computerScore++;
 
-    if (result === 1)
-        playerScore++;
-    if (result === -1)
-        computerScore++;
-    scoreBoard.textContent = playerScore + ":" + computerScore;
+    playerScoreEle.textContent = playerScore;
+    computerScoreEle.textContent = computerScore;
 
-    // TODO refactor
-    const buttons = document.querySelectorAll('.main-button');
+    
     // condition for end game
-    if (playerScore >= 5 || computerScore >= 5)
+    if (isEndGame(playerScore, computerScore)) {
         buttons.forEach(btn => btn.setAttribute('disabled', 'true'));
+    }
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -41,22 +43,28 @@ function playRound(playerSelection, computerSelection) {
     }
 
     if (playerSelection === "rock") {
-        if (computerSelection === "paper")
+        if (computerSelection === "paper") {
             return ["You lose! Paper beats rock", -1];
-        else if (computerSelection === "scissors")
+        }
+        else if (computerSelection === "scissors") {
             return ["You win! Rock beats scissors", 1];
+        }
     }
     else if (playerSelection === "paper") {
-        if (computerSelection === "rock")
+        if (computerSelection === "rock") {
             return ["You win! Paper beats rock", 1];
-        else if (computerSelection === "scissors")
+        }
+        else if (computerSelection === "scissors") {
             return ["You lose! Scissors beat paper", -1];
+        }
     }
     else if (playerSelection === "scissors") {
-        if (computerSelection === "rock")
+        if (computerSelection === "rock") {
             return ["You lose! Rock beats scissors", -1];
-        else if (computerSelection === "paper")
+        }
+        else if (computerSelection === "paper") {
             return ["You win! Scissors beat paper", 1];
+        }
     }
 }
 
@@ -64,6 +72,8 @@ function computerPlay() {
     return ["rock", "paper", "scissors"][Math.floor(Math.random() * 3)];
 }
 
+function isEndGame(playerScore, computerScore) {
+    return playerScore >= MAX_NUM_GAMES || computerScore >= MAX_NUM_GAMES;
+}
 
 
-main();
