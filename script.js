@@ -1,10 +1,11 @@
 const MAX_NUM_GAMES = 5;
 
 const buttons = document.querySelectorAll('.main-button');
+const restartBtn = document.querySelector('#restart-button');
 
-buttons.forEach(btn => {
-    btn.addEventListener('click', clickHandler);
-});
+buttons.forEach(btn => btn.addEventListener('click', clickHandler));
+
+restartBtn.addEventListener('click', restartGame);
     
 
 function clickHandler(e) {
@@ -31,6 +32,9 @@ function clickHandler(e) {
     // condition for end game
     if (isEndGame(playerScore, computerScore)) {
         buttons.forEach(btn => btn.setAttribute('disabled', 'true'));
+        
+        restartBtn.style.display = 'block';
+        restartBtn.style.opacity = 1;
     }
 }
 
@@ -74,6 +78,18 @@ function computerPlay() {
 
 function isEndGame(playerScore, computerScore) {
     return playerScore >= MAX_NUM_GAMES || computerScore >= MAX_NUM_GAMES;
+}
+
+function restartGame() {
+
+    const playerScoreEle = document.querySelector('#player-score');
+    const computerScoreEle = document.querySelector('#computer-score');
+
+    let playerScore = parseInt(playerScoreEle.textContent);
+    let computerScore = parseInt(computerScoreEle.textContent);
+
+    playerScoreEle.textContent = playerScore;
+    computerScoreEle.textContent = computerScore;
 }
 
 
