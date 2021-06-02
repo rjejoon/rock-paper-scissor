@@ -2,6 +2,9 @@ const MAX_NUM_GAMES = 5;
 
 const buttons = document.querySelectorAll('.main-button');
 const restartBtn = document.querySelector('#restart-button');
+const playerScoreEle = document.querySelector('#player-score');
+const computerScoreEle = document.querySelector('#computer-score');
+const msgEle = document.querySelector('#result-msg');
 
 buttons.forEach(btn => btn.addEventListener('click', clickHandler));
 
@@ -13,11 +16,7 @@ function clickHandler(e) {
 
     const [resultMsg, result] = playRound(buttonType, computerPlay());
 
-    const msgEle = document.querySelector('#result-msg');
     msgEle.textContent = resultMsg;
-
-    const playerScoreEle = document.querySelector('#player-score');
-    const computerScoreEle = document.querySelector('#computer-score');
 
     let playerScore = parseInt(playerScoreEle.textContent);
     let computerScore = parseInt(computerScoreEle.textContent);
@@ -28,7 +27,6 @@ function clickHandler(e) {
     playerScoreEle.textContent = playerScore;
     computerScoreEle.textContent = computerScore;
 
-    
     // condition for end game
     if (isEndGame(playerScore, computerScore)) {
         buttons.forEach(btn => btn.setAttribute('disabled', 'true'));
@@ -81,15 +79,11 @@ function isEndGame(playerScore, computerScore) {
 }
 
 function restartGame() {
+    playerScoreEle.textContent = 0;
+    computerScoreEle.textContent = 0;
+    msgEle.textContent = '';
 
-    const playerScoreEle = document.querySelector('#player-score');
-    const computerScoreEle = document.querySelector('#computer-score');
-
-    let playerScore = parseInt(playerScoreEle.textContent);
-    let computerScore = parseInt(computerScoreEle.textContent);
-
-    playerScoreEle.textContent = playerScore;
-    computerScoreEle.textContent = computerScore;
+    buttons.forEach(btn => btn.removeAttribute('disabled'));
 }
 
 
